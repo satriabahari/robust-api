@@ -3,12 +3,14 @@ import { PrismaService } from '../common/prisma.service';
 import {
   LoginUserRequest,
   RegisterUserRequest,
+  UpdateUserRequest,
   UserResponse,
 } from '../model/user.model';
 import { ValidationService } from '../common/validation.service';
 import { UserValidation } from './user.validation';
 import * as bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UserService {
@@ -81,6 +83,60 @@ export class UserService {
       username: user.username,
       email: user.email,
       token: user.token,
+    };
+  }
+
+  async get(user: User): Promise<UserResponse> {
+    return {
+      username: user.username,
+      email: user.email,
+    };
+  }
+
+  async update(user: User, request: UpdateUserRequest): Promise<UserResponse> {
+    const updateRequest: UpdateUserRequest = this.validationService.validate(
+      UserValidation.UPDATE,
+      request,
+    );
+
+    if (updateRequest.username) {
+      user.username = updateRequest.username;
+    }
+
+    // if (updateRequest.email) {
+    //   user.email = updateRequest.email;
+    // }
+
+    if (updateRequest.password) {
+      user.password = await bcrypt.hash(updateRequest.password, 10);
+    }
+
+    const result = await this.prismaService.user.update({
+      where: {
+        email: user.email,
+      },
+      data: user,
+    });
+
+    return {
+      username: result.username,
+      email: result.email,
+    };
+  }
+
+  async logout(user: User): Promise<UserResponse> {
+    const result = await this.prismaService.user.update({
+      where: {
+        email: user.email,
+      },
+      data: {
+        token: null,
+      },
+    });
+
+    return {
+      username: result.username,
+      email: result.email,
     };
   }
 }

@@ -14,3 +14,9 @@ export class LoginUserRequest {
   email: string;
   password: string;
 }
+
+export class UpdateUserRequest {
+  username?: string;
+  // email?: string;
+  password?: string;
+}
