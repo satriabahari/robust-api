@@ -65,11 +65,11 @@ model Merchandise {
   @@map("merchandises")
 }
 
-model Class {
+model Training {
   id          Int     @id @default(autoincrement())
-  title       String  @db.VarChar(100)
+  title       String  @unique @db.VarChar(100)
   description String? @db.VarChar(100)
-  price       Int
+  image       String  @db.VarChar(100)
 
-  @@map("classes")
+  @@map("trainings")
 }

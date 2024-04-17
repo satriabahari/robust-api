@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../src/common/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { Membership, Merchandise, User } from '@prisma/client';
+import { Membership, Merchandise, Training, User } from '@prisma/client';
 
 @Injectable()
 export class TestService {
@@ -11,6 +11,7 @@ export class TestService {
     await this.deleteUser();
     await this.deleteMembership();
     await this.deleteMerchandise();
+    await this.deleteTraining();
   }
 
   async deleteUser() {
@@ -31,6 +32,14 @@ export class TestService {
 
   async deleteMerchandise() {
     await this.prismaService.merchandise.deleteMany({
+      where: {
+        title: 'test',
+      },
+    });
+  }
+
+  async deleteTraining() {
+    await this.prismaService.training.deleteMany({
       where: {
         title: 'test',
       },
@@ -69,6 +78,16 @@ export class TestService {
     });
   }
 
+  async createTraining() {
+    await this.prismaService.training.create({
+      data: {
+        title: 'test',
+        description: 'test',
+        image: 'test',
+      },
+    });
+  }
+
   async getUser(): Promise<User> {
     return this.prismaService.user.findUnique({
       where: {
@@ -87,6 +106,14 @@ export class TestService {
 
   async getMerchandise(): Promise<Merchandise> {
     return this.prismaService.merchandise.findUnique({
+      where: {
+        title: 'test',
+      },
+    });
+  }
+
+  async getTraining(): Promise<Training> {
+    return this.prismaService.training.findUnique({
       where: {
         title: 'test',
       },
