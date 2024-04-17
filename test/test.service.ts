@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../src/common/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { User } from '@prisma/client';
+import { Membership, Merchandise, User } from '@prisma/client';
 
 @Injectable()
 export class TestService {
@@ -10,6 +10,7 @@ export class TestService {
   async deleteAll() {
     await this.deleteUser();
     await this.deleteMembership();
+    await this.deleteMerchandise();
   }
 
   async deleteUser() {
@@ -22,6 +23,14 @@ export class TestService {
 
   async deleteMembership() {
     await this.prismaService.membership.deleteMany({
+      where: {
+        title: 'test',
+      },
+    });
+  }
+
+  async deleteMerchandise() {
+    await this.prismaService.merchandise.deleteMany({
       where: {
         title: 'test',
       },
@@ -49,10 +58,37 @@ export class TestService {
     });
   }
 
+  async createMerchandise() {
+    await this.prismaService.merchandise.create({
+      data: {
+        title: 'test',
+        description: 'test',
+        price: 100,
+        stock: 100,
+      },
+    });
+  }
+
   async getUser(): Promise<User> {
     return this.prismaService.user.findUnique({
       where: {
         email: 'test@gmail.com',
+      },
+    });
+  }
+
+  async getMembership(): Promise<Membership> {
+    return this.prismaService.membership.findUnique({
+      where: {
+        title: 'test',
+      },
+    });
+  }
+
+  async getMerchandise(): Promise<Merchandise> {
+    return this.prismaService.merchandise.findUnique({
+      where: {
+        title: 'test',
       },
     });
   }
