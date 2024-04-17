@@ -1,8 +1,8 @@
-# Merchendise API Spec
+# Merchandise API Spec
 
 ## Create Merchendise
 
-Endpoint : POST /api/merchendises
+Endpoint : POST /api/merchandise
 
 Headers:
 
@@ -35,7 +35,7 @@ Response Body:
 
 ## Get Merchendise
 
-Endpoint: GET /api/merchendises/:merchendiseId
+Endpoint: GET /api/merchandise/:merchandiseId
 
 Headers:
 
@@ -57,7 +57,7 @@ Response Body:
 
 ## Update Merchendise
 
-Endpoint : PUT /api/merchendises/:merchendiseId
+Endpoint : PUT /api/merchandise/:merchandiseId
 
 Headers:
 
@@ -90,7 +90,7 @@ Response Body:
 
 ## Remove Merchendise
 
-Endpoint: DELETE /api/merchendises/:merchendiseId
+Endpoint: DELETE /api/merchandise/:merchandiseId
 
 Headers:
 
@@ -106,7 +106,7 @@ Response Body:
 
 ## List Merchendise
 
-Endpoint : GET /api/merchendises
+Endpoint : GET /api/merchandise
 
 Headers:
 
@@ -132,5 +132,46 @@ Response Body:
       "stock": 10
     }
   ]
+}
+```
+
+## Search Merhcandise
+
+Endpoint: GET /api/merchandises
+
+Query Params :
+
+- title: string, title merchandise, optional
+- description: string, description merchandise, optional
+- price: number, price merchandise, optional
+- stock: number, stock merchandise, optional
+- page: number, default 1
+- size: number, default 10
+
+Response Body :
+
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Yoga",
+      "description": "Yoga adalah blablabla",
+      "price": 100000,
+      "stock": 1
+    },
+    {
+      "id": 2,
+      "title": "Yoga",
+      "description": "Yoga adalah blablabla",
+      "price": 200000,
+      "stock": 1
+    }
+  ],
+  "paging": {
+    "current_page": 1,
+    "total_page": 10,
+    "size": 10
+  }
 }
 ```
