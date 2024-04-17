@@ -10,3 +10,11 @@ export class MembershipResponse {
   description: string;
   price: number;
 }
+
+export class SearchMembershipRequest {
+  title?: string;
+  description?: string;
+  price?: number;
+  page: number;
+  size: number;
+}
