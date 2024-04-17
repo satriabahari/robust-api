@@ -127,3 +127,41 @@ Response Body:
   ]
 }
 ```
+
+## Search Membership
+
+Endpoint: GET /api/memberships
+
+Query Params :
+
+- title: string, title membership, optional
+- description: string, description membership, optional
+- price: number, price membership, optional
+- page: number, default 1
+- size: number, default 10
+
+Response Body :
+
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Yoga",
+      "description": "Yoga adalah blablabla",
+      "price": 100000
+    },
+    {
+      "id": 2,
+      "title": "Yoga",
+      "description": "Yoga adalah blablabla",
+      "price": 200000
+    }
+  ],
+  "paging": {
+    "current_page": 1,
+    "total_page": 10,
+    "size": 10
+  }
+}
+```
