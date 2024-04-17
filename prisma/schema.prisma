@@ -57,7 +57,7 @@ model Membership {
 
 model Merchandise {
   id          Int     @id @default(autoincrement())
-  title       String  @db.VarChar(100)
+  title       String  @unique @db.VarChar(100)
   description String? @db.VarChar(100)
   price       Int
   stock       Int
